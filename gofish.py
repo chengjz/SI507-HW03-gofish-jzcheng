@@ -125,7 +125,33 @@ if __name__ == "__main__":
 
 #########
 
+class Hand:
+	# create the Hand with an initial set of cards
+	# param: a list of cards -- init_cards
+	def __init__(self, init_cards):
+		self.cards = init_cards.copy()
 
+	# add a card to the hand
+	# silently fails if the card is already in the hand
+	# param: the card to add
+	# returns: nothing
+	def add_card(self, card):
+		card_strs = []
+		for c in self.cards:
+			card_strs.append(c.__str__())
+		if card.__str__() not in card_strs:
+			self.cards.append(card)
+
+	# remove a card from the hand
+	# param: the card to remove
+	# returns: the card, or None if the card was not in the Hand
+	def remove_card(self, card):
+		card_str = card.__str__()
+		for existing_card in self.cards:
+			if existing_card.__str__() == card_str:
+				self.cards.remove(existing_card)
+				return existing_card
+		return None
 
 
 ##**##**##**##@##**##**##**## # DO NOT CHANGE OR DELETE THIS COMMENT LINE -- we use it for grading your file
