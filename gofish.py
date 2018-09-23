@@ -2,10 +2,10 @@ import random
 import unittest
 
 # SI 507 Fall 2018
-# Homework 2 - Code
+# Homework 3 extra1 - Code
 
 ##COMMENT YOUR CODE WITH:
-# Section Day/Time:
+# Section Day/Time: 09/20/2018
 # People you worked with:
 
 ######### DO NOT CHANGE PROVIDED CODE #########
