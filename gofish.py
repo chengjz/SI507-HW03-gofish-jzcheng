@@ -206,7 +206,7 @@ for i in range(player_count):
 asked_rank = 0
     
     
-    prompt = current_player_name + ": Please choose a card rank you would like to ask the other player if they have (between 1-13):"
+        prompt = current_player_name + ": Please choose a card rank you would like to ask the other player if they have (between 1-13):"
         asked_rank = ask_for_rank(prompt, current_player)
         
         
