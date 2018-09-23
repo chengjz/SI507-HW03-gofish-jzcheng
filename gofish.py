@@ -219,12 +219,50 @@ def play_go_fish(player_count):
                 next_player.remove_card(card)
                 current_player.add_card(card)
                 print(next_player_name + ": Give you " + str(card))
+                dict = {}
+                current_player_cards = current_player.cards.copy()
+                for card in current_player_cards:
+                    if card.rank in dict:
+                        dict[card.rank] += 1
+                    else:
+                        dict[card.rank] = 1
+
+                new_faces = []
+                for face, count in dict.items():
+                    if count == 4:
+                        new_faces.append(face)
+
+                for card in current_player_cards:
+                    if card.rank in new_faces:
+                        current_player.remove_card(card)
+
+                for face in new_faces:
+                    faces[current_player_index].append(face)
         
         deck_has_card = len(deck.cards) != 0
         if should_go_fish and deck_has_card:
             print(next_player_name + " Go fish.")
             drawed_card = current_player.draw(deck)
             if drawed_card.rank != asked_rank:
+                dict = {}
+                current_player_cards = current_player.cards.copy()
+                for card in current_player_cards:
+                    if card.rank in dict:
+                        dict[card.rank] += 1
+                    else:
+                        dict[card.rank] = 1
+
+                new_faces = []
+                for face, count in dict.items():
+                    if count == 4:
+                        new_faces.append(face)
+
+                for card in current_player_cards:
+                    if card.rank in new_faces:
+                        current_player.remove_card(card)
+
+                for face in new_faces:
+                    faces[current_player_index].append(face)
                 current_player_index = next_player_index
             else:
                 print(current_player_name + ": I got another turn since I drawed " + str(drawed_card))
@@ -233,25 +271,25 @@ def play_go_fish(player_count):
                 print("No more card in the deck")
             current_player_index = next_player_index
 
-        dict = {}
-        current_player_cards = current_player.cards.copy()
-        for card in current_player_cards:
-            if card.rank in dict:
-                dict[card.rank] += 1
-            else:
-                dict[card.rank] = 1
+        # dict = {}
+        # current_player_cards = current_player.cards.copy()
+        # for card in current_player_cards:
+        #     if card.rank in dict:
+        #         dict[card.rank] += 1
+        #     else:
+        #         dict[card.rank] = 1
 
-        new_faces = []
-        for face, count in dict.items():
-            if count == 4:
-                new_faces.append(face)
+        # new_faces = []
+        # for face, count in dict.items():
+        #     if count == 4:
+        #         new_faces.append(face)
 
-        for card in current_player_cards:
-            if card.rank in new_faces:
-                current_player.remove_card(card)
+        # for card in current_player_cards:
+        #     if card.rank in new_faces:
+        #         current_player.remove_card(card)
 
-        for face in new_faces:
-            faces[current_player_index].append(face)
+        # for face in new_faces:
+        #     faces[current_player_index].append(face)
 
         should_continue = False
 
