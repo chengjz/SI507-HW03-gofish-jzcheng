@@ -228,7 +228,7 @@ def play_go_fish(player_count):
         
         deck_has_card = len(deck.cards) != 0
         if should_go_fish and deck_has_card:
-            print(next_player_name + " Go fish.")
+            print(next_player_name + ": Go fish.")
             drawed_card = current_player.draw(deck)
             if drawed_card.rank != asked_rank:
                 dict = {}
@@ -253,6 +253,26 @@ def play_go_fish(player_count):
                 current_player_index = next_player_index
             else:
                 print(current_player_name + ": I got another turn since I drawed " + str(drawed_card))
+
+                dict = {}
+                current_player_cards = current_player.cards.copy()
+                for card in current_player_cards:
+                    if card.rank in dict:
+                        dict[card.rank] += 1
+                    else:
+                        dict[card.rank] = 1
+
+                new_faces = []
+                for face, count in dict.items():
+                    if count == 4:
+                        new_faces.append(face)
+
+                for card in current_player_cards:
+                    if card.rank in new_faces:
+                        current_player.remove_card(card)
+
+                for face in new_faces:
+                    faces[current_player_index].append(face)
         else:
             if not deck_has_card:                
                 print("No more card in the deck")
@@ -265,6 +285,16 @@ def play_go_fish(player_count):
             print("Player " + str(index + 1) + ": " + str(faces[index]))
             if len(hands[index].cards) > 0:
                 should_continue = True
+            else:
+                print("Game ends")
+                should_continue = False
+
+    
+    winner_index = 0
+    for index in range(player_count):
+        if len(faces[index]) > len(faces[winner_index]):
+            winner_index = index
+    print(str(winner_index + 1) + " wins the game!")
 
 
 # Use this for Extra Credit 1
