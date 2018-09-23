@@ -199,8 +199,7 @@ def play_go_fish(player_count):
             if len(deck.cards) > 0:
                 current_player.draw(deck)
             else:
-                print(current_player_name + ": I have no cards in my hand")
-                current_player.draw(deck)
+                print(current_player_name + ": Skip, since I have no cards in my hand")
                 current_player_index = next_player_index
                 continue
         
@@ -229,7 +228,6 @@ def play_go_fish(player_count):
                 current_player_index = next_player_index
             else:
                 print(current_player_name + ": I got another turn since I drawed " + str(drawed_card))
-                current_player.draw(deck)
         else:
             if not deck_has_card:                
                 print("No more card in the deck")
@@ -269,18 +267,23 @@ def ask_for_rank(prompt, hands):
     # repeat until the asked rank is valid
     while True:
         user_input = input(prompt)
-        asked_rank = Card(0, int(user_input)).rank
-        
-        # verify that the rank is valid
-        is_asked_valid = False
-        for card in hands.cards:
-            if card.rank == asked_rank:
-                is_asked_valid = True
-                break
+        if user_input != "":
+            asked_rank = Card(0, int(user_input)).rank
+            
+            # verify that the rank is valid
+            is_asked_valid = False
+            for card in hands.cards:
+                if card.rank == asked_rank:
+                    is_asked_valid = True
+                    break
 
-        if is_asked_valid:
-            return asked_rank
-        else: 
-            print("You must have at least one card of the rank you requested.")
+            if is_asked_valid:
+                return asked_rank
+            else: 
+                print("You must have at least one card of the rank you requested.")
+        else:
+            print("Invalid input! Please input a rank.")
+        
+        
 
 play_go_fish_human()
