@@ -144,9 +144,12 @@ class Hand:
 
 
 def play_go_fish_human():
-    play_go_fish(2)
+    play_go_fish(2, False)
 
-def play_go_fish(player_count):
+def play_go_fish_computer(num_player):
+    play_go_fish(num_player, True)
+
+def play_go_fish(player_count, simulate):
     deck = Deck()
     deck.shuffle()
 
@@ -167,7 +170,7 @@ def play_go_fish(player_count):
 
     while should_continue:
         steps += 1
-        if steps > 1000:
+        if steps > 10:
             print("It's a draw, too many rounds already.")
             break
 
@@ -192,9 +195,11 @@ def play_go_fish(player_count):
         
         asked_rank = 0
 
-            
-        prompt = current_player_name + ": Please choose a card rank you would like to ask the other player if they have (between 1-13):"
-        asked_rank = ask_for_rank(prompt, current_player)
+        if simulate:
+            asked_rank = ask_computer_for_rank(current_player)        
+        else:
+            prompt = current_player_name + ": Please choose a card rank you would like to ask the other player if they have (between 1-13):"
+            asked_rank = ask_for_rank(prompt, current_player)
         
 
         print(current_player_name + ": I want " + str(asked_rank))
@@ -288,6 +293,19 @@ def ask_for_rank(prompt, hands):
                 print("You must have at least one card of the rank you requested.")
         else:
             print("Invalid input! Please input a rank.")
-        
-        
-play_go_fish_human()
+
+# Use this for Extra Credit 2
+def ask_computer_for_rank(hands):
+    return hands.cards[0].rank        
+
+
+ask_num_player = input("How many computer players would you like to take part in the simulation (between 2 and 4)?")
+
+num_player = int(ask_num_player)
+play_go_fish_computer(num_player)
+
+
+
+
+
+
