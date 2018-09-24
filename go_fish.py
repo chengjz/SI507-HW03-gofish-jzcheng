@@ -294,7 +294,7 @@ def play_go_fish(player_count):
     for index in range(player_count):
         if len(faces[index]) > len(faces[winner_index]):
             winner_index = index
-    print(str(winner_index + 1) + " wins the game!")
+    print("Player " + str(winner_index + 1) + " wins the game!")
 
 
 # Use this for Extra Credit 1
